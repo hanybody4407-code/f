@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة متابعة التحصيل اليومي - ري الشرقية</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Cairo -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between">
+
+    <!-- Header -->
+    <header class="bg-blue-900 text-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-blue-800 p-3 rounded-xl border border-blue-700 shadow-inner">
+                    <i class="fa-solid fa-water text-3xl text-blue-300"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold">الادارة المركزية للموارد المائية و الري لمحافظة الشرقية</h1>
+                    <p class="text-blue-200 text-sm">لوحة متابعة التحصيل اليومي والتقارير المالية الذكية</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 bg-blue-800 px-4 py-2 rounded-lg text-sm border border-blue-700">
+                <i class="fa-regular fa-calendar-days text-blue-300"></i>
+                <span>تاريخ التقرير: <strong>2026/11/12</strong></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-8 w-full flex-grow space-y-8">
+
+        <!-- Top Stats Row -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between">
+                <div>
+                    <p class="text-slate-500 text-sm font-semibold">إجمالي المتحصلات الكلي</p>
+                    <h3 class="text-3xl font-black text-blue-900 mt-1">73,843 <span class="text-sm font-normal text-slate-500">جنيه</span></h3>
+                </div>
+                <div class="bg-emerald-50 text-emerald-600 p-4 rounded-xl">
+                    <i class="fa-solid fa-wallet text-2xl"></i>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between">
+                <div>
+                    <p class="text-slate-500 text-sm font-semibold">عدد الإدارات النشطة تحصيلياً</p>
+                    <h3 class="text-3xl font-black text-blue-900 mt-1">2 <span class="text-sm font-normal text-slate-500">من 6 إدارات</span></h3>
+                </div>
+                <div class="bg-blue-50 text-blue-600 p-4 rounded-xl">
+                    <i class="fa-solid fa-building-columns text-2xl"></i>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between">
+                <div>
+                    <p class="text-slate-500 text-sm font-semibold">أعلى إدارة تحصيلاً</p>
+                    <h3 class="text-xl font-black text-blue-900 mt-1">صرف جنوب الشرقية</h3>
+                </div>
+                <div class="bg-amber-50 text-amber-600 p-4 rounded-xl">
+                    <i class="fa-solid fa-trophy text-2xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Daily Report Message Box (Exact Text format) -->
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+            <div class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center">
+                <h2 class="font-bold text-lg flex items-center gap-2">
+                    <i class="fa-solid fa-message text-blue-400"></i> التقرير اليومي النصي المعتمد
+                </h2>
+                <button onclick="copyReportText()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg text-sm transition flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-regular fa-copy"></i> نسخ النص
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 font-mono text-sm leading-relaxed whitespace-pre-line text-slate-700 shadow-inner" id="reportTextContent">الادارة المركزية للموارد المائية و الري لمحافظة الشرقية
+ملخص المتحصلات اليومية (2026/11/12):
+1. ري شرق الشرقية: 29,680
+2. ري غرب الشرقية: 2,165
+3. ري الصالحية: 0
+4. صرف جنوب الشرقية: 41,998
+5. صرف شمال الشرقية: 0
+6. صرف الشرقية: 0
+الإجمالي الكلي لمحافظة الشرقية: 73,843</div>
+            </div>
+        </section>
+
+        <!-- Section 3 & 4: Charts and Table Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Charts Section -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between">
+                <div>
+                    <h2 class="font-bold text-lg text-slate-800 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie text-blue-600"></i> توزيع المتحصلات على الإدارات
+                    </h2>
+                    <div class="relative h-72 flex justify-center items-center">
+                        <canvas id="collectionChart"></canvas>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-400 text-center mt-4">رسم بياني يوضح مساهمة كل إدارة في إجمالي التحصينات اليومية.</p>
+            </div>
+
+            <!-- Detailed Table Section -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between">
+                <div>
+                    <h2 class="font-bold text-lg text-slate-800 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-table text-blue-600"></i> الجدول التفصيلي للتحصيل اليومي
+                    </h2>
+                    <div class="overflow-x-auto rounded-xl border border-slate-100">
+                        <table class="w-full text-right text-sm">
+                            <thead class="bg-slate-100 text-slate-700 font-bold">
+                                <tr>
+                                    <th class="p-3">الإدارة</th>
+                                    <th class="p-3">المتحصلات (جنيه)</th>
+                                    <th class="p-3">النسبة من الإجمالي</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr class="hover:bg-slate-50 transition">
+                                    <td class="p-3 font-semibold text-slate-700">ري شرق الشرقية</td>
+                                    <td class="p-3 text-blue-900 font-bold">29,680</td>
+                                    <td class="p-3 text-slate-500">40.2%</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition">
+                                    <td class="p-3 font-semibold text-slate-700">ري غرب الشرقية</td>
+                                    <td class="p-3 text-blue-900 font-bold">2,165</td>
+                                    <td class="p-3 text-slate-500">2.9%</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition">
+                                    <td class="p-3 font-semibold text-slate-700">ري الصالحية</td>
+                                    <td class="p-3 text-slate-400">0</td>
+                                    <td class="p-3 text-slate-400">0.0%</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition">
+                                    <td class="p-3 font-semibold text-slate-700">صرف جنوب الشرقية</td>
+                                    <td class="p-3 text-blue-900 font-bold">41,998</td>
+                                    <td class="p-3 text-slate-500">56.9%</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition">
+                                    <td class="p-3 font-semibold text-slate-700">صرف شمال الشرقية</td>
+                                    <td class="p-3 text-slate-400">0</td>
+                                    <td class="p-3 text-slate-400">0.0%</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition">
+                                    <td class="p-3 font-semibold text-slate-700">صرف الشرقية</td>
+                                    <td class="p-3 text-slate-400">0</td>
+                                    <td class="p-3 text-slate-400">0.0%</td>
+                                </tr>
+                            </tbody>
+                            <tfoot class="bg-blue-50 font-bold text-blue-900">
+                                <tr>
+                                    <td class="p-3">الإجمالي الكلي</td>
+                                    <td class="p-3" colspan="2">73,843 جنيه</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5: GitHub Pages Publishing Instructions -->
+        <section class="bg-blue-900 text-white rounded-2xl p-6 shadow-sm">
+            <h2 class="text-lg font-bold mb-3 flex items-center gap-2">
+                <i class="fa-brands fa-github text-2xl"></i> كيفية رفع هذا الموقع على GitHub Pages مجاناً
+            </h2>
+            <ol class="list-decimal list-inside space-y-2 text-sm text-blue-100">
+                <li>قم بإنشاء مستودع جديد (Repository) على موقع <a href="https://github.com" target="_blank" class="underline text-white font-semibold">GitHub</a> وسمِّه مثلاً <code>sharkia-irrigation-dashboard</code>.</li>
+                <li>احفظ هذا الكود بالكامل داخل ملف واحد باسم <code>index.html</code>.</li>
+                <li>قم برفع (Upload) ملف <code>index.html</code> إلى المستودع الجديد على جيثب.</li>
+                <li>من إعدادات المستودع (Settings)، انتقل إلى قسم <strong>Pages</strong> في القائمة الجانبية.</li>
+                <li>تحت قسم Build and deployment، اختر الفرع <code>main</code> أو <code>master</code> واضغط Save.</li>
+                <li>خلال دقائق قليلة، سيتم تفعيل رابط موقعك المباشر لعرض لوحة التحصيل على الإنترنت!</li>
+            </ol>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-6 mt-12 text-center text-slate-500 text-sm">
+        <p>جميع الحقوق محفوظة © 2026 - الادارة المركزية للموارد المائية و الري لمحافظة الشرقية</p>
+    </footer>
+
+    <!-- JavaScript for Chart and Interactions -->
+    <script>
+        // Copy Report Text Function
+        function copyReportText() {
+            const text = document.getElementById('reportTextContent').innerText;
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                alert('تم نسخ التقرير بنجاح!'); // Fallback alert style replaced gracefully or standard ok
+            } catch (err) {
+                console.error('فشل النسخ', err);
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // Initialize Chart.js Doughnut Chart
+        window.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('collectionChart').getContext('2d');
+            
+            const departments = [
+                'ري شرق الشرقية', 
+                'ري غرب الشرقية', 
+                'ري الصالحية', 
+                'صرف جنوب الشرقية', 
+                'صرف شمال الشرقية', 
+                'صرف الشرقية'
+            ];
+            
+            const collections = [29680, 2165, 0, 41998, 0, 0];
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: departments,
+                    datasets: [{
+                        data: collections,
+                        backgroundColor: [
+                            '#2563eb', // Blue
+                            '#38bdf8', // Light Blue
+                            '#94a3b8', // Gray
+                            '#10b981', // Emerald
+                            '#cbd5e1', // Light Gray
+                            '#e2e8f0'  // Lighter Gray
+                        ],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            rtl: true,
+                            labels: {
+                                font: {
+                                    family: 'Cairo',
+                                    size: 12
+                                },
+                                boxWidth: 15,
+                                padding: 15
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
